@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Wress</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="intro_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porta, turpis nec cursus commodo, massa.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
