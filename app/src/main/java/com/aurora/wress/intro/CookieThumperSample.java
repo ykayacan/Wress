@@ -8,19 +8,13 @@ import android.graphics.Typeface;
 import su.levenetc.android.textsurface.Text;
 import su.levenetc.android.textsurface.TextBuilder;
 import su.levenetc.android.textsurface.TextSurface;
-import su.levenetc.android.textsurface.animations.Alpha;
-import su.levenetc.android.textsurface.animations.ChangeColor;
-import su.levenetc.android.textsurface.animations.Circle;
 import su.levenetc.android.textsurface.animations.Delay;
 import su.levenetc.android.textsurface.animations.Parallel;
-import su.levenetc.android.textsurface.animations.Rotate3D;
 import su.levenetc.android.textsurface.animations.Sequential;
 import su.levenetc.android.textsurface.animations.ShapeReveal;
 import su.levenetc.android.textsurface.animations.SideCut;
-import su.levenetc.android.textsurface.animations.Slide;
 import su.levenetc.android.textsurface.animations.TransSurface;
 import su.levenetc.android.textsurface.contants.Align;
-import su.levenetc.android.textsurface.contants.Direction;
 import su.levenetc.android.textsurface.contants.Pivot;
 import su.levenetc.android.textsurface.contants.Side;
 
@@ -28,7 +22,7 @@ public class CookieThumperSample {
 
     public static void play(TextSurface textSurface, AssetManager assetManager) {
 
-        final Typeface productSans = Typeface.createFromAsset(assetManager, "fonts/BebasNeue-Regular.otf");
+        final Typeface productSans = Typeface.createFromAsset(assetManager, "fonts/GARTON.TTF");
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setTypeface(productSans);
@@ -42,11 +36,11 @@ public class CookieThumperSample {
                 .setPosition(Align.SURFACE_CENTER).build();
 
         Text textBraAnies = TextBuilder
-                .create("Find your outfit!")
+                .create("\"Find your outfit!\"")
                 .setPaint(paint)
-                .setSize(44)
+                .setSize(24)
                 .setAlpha(0)
-                .setColor(Color.RED)
+                .setColor(Color.CYAN)
                 .setPosition(Align.BOTTOM_OF, textDaai).build();
 
         textSurface.play(
