@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aurora.wress.login.LoginActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".login.LoginActivity">
 
     <ImageView
         android:layout_width="match_parent"
-        android:src="@drawable/loginbg"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:layout_height="match_parent" />
+        android:src="@drawable/brand_bg"/>
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:src="@drawable/wress_logo_c"
+        android:layout_above="@+id/login_facebook"
+        android:layout_marginBottom="40dp"/>
 
-    <Button
-        android:id="@+id/sign_out_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Out"
-        android:enabled="true"
-        android:layout_above="@+id/revoke_access_button"
-        android:layout_centerHorizontal="true" />
+    <com.aurora.wress.widget.CustomFontButton
+        android:id="@+id/login_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="8dp"
+        android:background="@drawable/btn_transparent"
+        android:text="Sign In with Facebook"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:font="@string/proximaNovaSemibold"/>
 
-    <Button
-        android:id="@+id/revoke_access_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Revoke Access"
-        android:enabled="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="154dp" />
+    <com.aurora.wress.widget.CustomFontButton
+        android:id="@+id/login_googlePlus"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/login_facebook"
+        android:layout_margin="8dp"
+        android:background="@drawable/btn_transparent"
+        android:text="Sign In with Google+"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:font="@string/proximaNovaSemibold"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.aurora.wress.widget.CustomFontTextView
+        android:id="@+id/login_skip"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/statuslabel"
-        android:text="Status"
-        android:layout_above="@+id/sign_in_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/login_googlePlus"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="SKIP"
+        android:textColor="@color/colorAppBlack"
+        android:textSize="20sp"
+        app:font="@string/proximaNovaSemibold"/>
 
 </RelativeLayout>

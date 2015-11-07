@@ -1,8 +1,6 @@
 package com.aurora.wress.intro;
 
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +11,7 @@ import android.widget.TextView;
 import com.aurora.wress.R;
 import com.bumptech.glide.Glide;
 
-public class SlideFragment extends Fragment {
+public class IntroFragment extends Fragment {
 
     private static final String ARG_DESCRIPTION = "description";
     private static final String ARG_IMAGE = "image";
@@ -21,15 +19,11 @@ public class SlideFragment extends Fragment {
     private int mDescriptionRes;
     private int mBgImageRes;
 
-    private TextView mDescTv;
-    private ImageView mBgIV;
-
-    public SlideFragment() {
+    public IntroFragment() {
     }
 
-    public static SlideFragment newInstance(@StringRes int description,
-                                            @DrawableRes int backgroundImage) {
-        SlideFragment fragment = new SlideFragment();
+    public static IntroFragment newInstance(int description, int backgroundImage) {
+        IntroFragment fragment = new IntroFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_DESCRIPTION, description);
         args.putInt(ARG_IMAGE, backgroundImage);
@@ -52,15 +46,15 @@ public class SlideFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_slide, container, false);
 
-        mDescTv = (TextView) v.findViewById(R.id.intro_description);
-        mBgIV = (ImageView) v.findViewById(R.id.intro_background);
+        TextView mDescriptionTv = (TextView) v.findViewById(R.id.intro_description);
+        ImageView mBackgroundIV = (ImageView) v.findViewById(R.id.intro_background);
 
-        mDescTv.setText(mDescriptionRes);
+        mDescriptionTv.setText(mDescriptionRes);
+
+        // Image library for handling images
         Glide.with(this)
                 .load(mBgImageRes)
-                .crossFade()
-                .centerCrop()
-                .into(mBgIV);
+                .into(mBackgroundIV);
         return v;
     }
 

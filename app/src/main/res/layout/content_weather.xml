@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.aurora.wress.weather.WeatherActivity"
+    tools:showIn="@layout/activity_weather">
+
+    <com.aurora.wress.widget.CustomFontTextView
+        android:id="@+id/weather_hero_degree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weather_day_group"
+        android:layout_margin="32dp"
+        android:text="19&#xb0;"
+        android:textColor="@android:color/white"
+        android:textSize="96sp"
+        app:font="@string/proximaNovaExtraBold"/>
+
+    <com.github.pwittchen.weathericonview.WeatherIconView
+        android:id="@+id/weather_hero_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weather_hero_condition"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_toEndOf="@+id/weather_hero_degree"
+        android:layout_toRightOf="@+id/weather_hero_degree"
+        custom:weatherIconColor="@android:color/white"
+        custom:weatherIconResource="@string/wi_day_sunny_overcast"
+        custom:weatherIconSize="48"/>
+
+    <com.aurora.wress.widget.CustomFontTextView
+        android:id="@+id/weather_hero_condition"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weather_day_group"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_toEndOf="@+id/weather_hero_degree"
+        android:layout_toRightOf="@+id/weather_hero_degree"
+        android:text="Partly Cloudy"
+        android:textColor="@android:color/white"
+        app:font="@string/proximaNovaSemibold"/>
+
+    <LinearLayout
+        android:id="@+id/weather_day_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/layout_transparent"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_today"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Today"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+            <com.github.pwittchen.weathericonview.WeatherIconView
+                android:id="@+id/weather_todayIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                custom:weatherIconColor="@android:color/white"
+                custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                custom:weatherIconSize="24"/>
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_today_degree"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="25 &#xb0;"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_tomorrow"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Tmrw"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+            <com.github.pwittchen.weathericonview.WeatherIconView
+                android:id="@+id/weather_tomorrowIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                custom:weatherIconColor="@android:color/white"
+                custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                custom:weatherIconSize="24"/>
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_tomorrow_degree"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="25 &#xb0;"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_day3"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Mon"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+            <com.github.pwittchen.weathericonview.WeatherIconView
+                android:id="@+id/weather_day3IV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                custom:weatherIconColor="@android:color/white"
+                custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                custom:weatherIconSize="24"/>
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_day3_degree"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="25 &#xb0;"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_day4"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Tue"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+            <com.github.pwittchen.weathericonview.WeatherIconView
+                android:id="@+id/weather_day4IV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                custom:weatherIconColor="@android:color/white"
+                custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                custom:weatherIconSize="24"/>
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_day4_degree"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="25 &#xb0;"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_day5"
+                style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Wed"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+            <com.github.pwittchen.weathericonview.WeatherIconView
+                android:id="@+id/weather_day5IV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                custom:weatherIconColor="@android:color/white"
+                custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                custom:weatherIconSize="24"/>
+
+            <com.aurora.wress.widget.CustomFontTextView
+                android:id="@+id/weather_day5_degree"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="25 &#xb0;"
+                android:textColor="@android:color/white"
+                app:font="@string/proximaNovaRegular"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.aurora.wress.widget.CustomFontButton
+        android:id="@+id/weather_wearBtn"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@+id/weather_day_group"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_24dp"
+        android:drawableRight="@drawable/ic_keyboard_arrow_right_24dp"
+        android:text="What do i wear?"
+        android:theme="@style/ButtonLight"
+        app:font="@string/proximaNovaSemibold"/>
+
+</RelativeLayout>
