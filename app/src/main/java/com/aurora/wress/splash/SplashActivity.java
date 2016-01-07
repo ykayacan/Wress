@@ -1,15 +1,18 @@
 package com.aurora.wress.splash;
 
+import com.aurora.wress.R;
+import com.aurora.wress.intro.IntroActivity;
+import com.aurora.wress.login.LoginActivity;
+import com.aurora.wress.utils.PrefUtil;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.aurora.wress.R;
-import com.aurora.wress.intro.IntroActivity;
-import com.aurora.wress.login.LoginActivity;
-import com.aurora.wress.utils.PrefUtils;
-
+/**
+ * The type Splash activity.
+ */
 public class SplashActivity extends Activity {
 
     private static final int SPLASH_DURATION = 1250; // ms
@@ -28,7 +31,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 // First check if ToS is accepted?
-                if (PrefUtils.isTosAccepted(getApplicationContext())) {
+                if (PrefUtil.isTosAccepted(getApplicationContext())) {
                     // Start new activity SplashActivity -> LoginActivity
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     // Remove activity from back stack

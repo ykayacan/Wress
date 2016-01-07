@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,53 +9,68 @@
     tools:context=".login.LoginActivity">
 
     <ImageView
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/brand_bg"/>
+        android:src="@drawable/bg_1080p_p"
+        tools:ignore="ContentDescription" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:src="@drawable/wress_logo_c"
-        android:layout_above="@+id/login_facebook"
-        android:layout_marginBottom="40dp"/>
-
-    <com.aurora.wress.widget.CustomFontButton
-        android:id="@+id/login_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="8dp"
-        android:background="@drawable/btn_transparent"
-        android:text="Sign In with Facebook"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:font="@string/proximaNovaSemibold"/>
-
-    <com.aurora.wress.widget.CustomFontButton
-        android:id="@+id/login_googlePlus"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_below="@+id/login_facebook"
-        android:layout_margin="8dp"
-        android:background="@drawable/btn_transparent"
-        android:text="Sign In with Google+"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:font="@string/proximaNovaSemibold"/>
-
-    <com.aurora.wress.widget.CustomFontTextView
-        android:id="@+id/login_skip"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_googlePlus"
-        android:layout_marginTop="70dp"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="SKIP"
-        android:textColor="@color/colorAppBlack"
-        android:textSize="20sp"
-        app:font="@string/proximaNovaSemibold"/>
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
-</RelativeLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Sign In or Sign Up" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/inner_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/brand_logo_height"
+                android:layout_margin="32dp"
+                android:src="@drawable/brand_logo"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/brand_logo_margin" />
+
+            <Button
+                android:id="@+id/skip"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Skip"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

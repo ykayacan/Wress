@@ -11,10 +11,9 @@
     <string name="title_activity_intro">IntroActivity</string>
     <string name="title_activity_location">LocationActivity</string>
     <!-- Fonts -->
-    <string name="brand_title_font">bigJohn.otf</string>
-    <string name="brand_subtitle_font">thirstyRoughRegOne.otf</string>
+    <string name="proximaNovaLight">proximanova_light.ttf</string>
+    <string name="proximaNovaRegular">proximanova_regular.ttf</string>
     <string name="proximaNovaSemibold">proximanova_semibold.ttf</string>
-    <string name="proximaNovaRegular">proximanova_regular.otf</string>
     <string name="proximaNovaExtraBold">proximanova_extrabold.ttf</string>
 
     <string name="location_terms">By Clicking on the BELOW button you agree
@@ -39,7 +38,16 @@ to all our terms and Conditions.</string>
 
     <string name="celcius_icon">&#xb0;</string>
 
-    <string name="base_url_yahoo">https://query.yahooapis.com/v1/public/</string>
-    <string name="base_url_flickr">https://api.flickr.com/services/</string>
-    <string name="flickr_api_key">f119f2462a9244ee3d58b029b39f8705</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="base_url_outfit">http://yasinsinankayacan.com/wress/</string>
+    <string name="base_url_forecast_io">https://api.forecast.io/forecast/bc24804d52ee957ecde6b38ef33ae9f3/</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Test</string>
+
+    <string name="lorem_ipsum">With ramens drink peppermint tea.Bursa cadunts, tanquam alter torus.Marshmellow combines greatly with shredded bagel.</string>
+
+    <string name="combine_1">A nice pullover with combined with shoes. Also a nice bruise with a jean.</string>
+    <string name="combine_5">A beautifully crafted leather boat, jeans, pullover and jacket.</string>
 </resources>

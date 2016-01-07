@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
@@ -20,7 +20,7 @@
         app:ci_animator="@animator/indicator_animator"
         app:ci_drawable="@drawable/black_radius_indicator" />
 
-    <com.aurora.wress.widget.CustomFontButton
+    <Button
         android:id="@+id/intro_get_started_Button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -30,7 +30,6 @@
         android:layout_weight=".1"
         android:text="Get Started"
         android:theme="@style/ButtonDark"
-        android:visibility="invisible"
-        app:font="@string/proximaNovaRegular" />
+        android:visibility="invisible" />
 
 </LinearLayout>

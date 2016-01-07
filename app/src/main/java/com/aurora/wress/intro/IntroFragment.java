@@ -1,5 +1,8 @@
 package com.aurora.wress.intro;
 
+import com.aurora.wress.R;
+import com.bumptech.glide.Glide;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.aurora.wress.R;
-import com.bumptech.glide.Glide;
-
+/**
+ * The type Intro fragment.
+ */
 public class IntroFragment extends Fragment {
 
     private static final String ARG_DESCRIPTION = "description";
@@ -19,9 +22,19 @@ public class IntroFragment extends Fragment {
     private int mDescriptionRes;
     private int mBgImageRes;
 
+    /**
+     * Instantiates a new Intro fragment.
+     */
     public IntroFragment() {
     }
 
+    /**
+     * New instance intro fragment.
+     *
+     * @param description     the description
+     * @param backgroundImage the background image
+     * @return the intro fragment
+     */
     public static IntroFragment newInstance(int description, int backgroundImage) {
         IntroFragment fragment = new IntroFragment();
         Bundle args = new Bundle();
@@ -53,8 +66,8 @@ public class IntroFragment extends Fragment {
 
         // Image library for handling images
         Glide.with(this)
-                .load(mBgImageRes)
-                .into(mBackgroundIV);
+            .load(mBgImageRes)
+            .into(mBackgroundIV);
         return v;
     }
 

@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".splash.SplashActivity">
 
     <ImageView
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/brand_bg"/>
+        android:src="@drawable/bg_1080p_p"
+        tools:ignore="ContentDescription" />
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_gravity="center"
-        android:src="@drawable/wress_logo_c"/>
+        android:src="@drawable/brand_logo"
+        tools:ignore="ContentDescription" />
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

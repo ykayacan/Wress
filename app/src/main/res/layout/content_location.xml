@@ -1,127 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/location_scrollView"
+<RelativeLayout android:id="@+id/inner_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.aurora.wress.location.MainActivity"
+    tools:context=".location.LocationActivity"
     tools:showIn="@layout/activity_location">
 
-    <RelativeLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/location_bg2_edit" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".3"
+        android:background="@android:color/background_dark" />
+
+    <Button
+        android:id="@+id/where_are_you_going"
+        android:layout_width="300dp"
+        android:layout_height="56dp"
+        android:layout_above="@+id/or"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/ic_navigation_24dp"
+        android:drawableStart="@drawable/ic_navigation_24dp"
+        android:text="Where are you going?"
+        android:theme="@style/ButtonLight" />
+
+    <TextView
+        android:id="@+id/or"
+        style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_centerInParent="true"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="OR"
+        android:textColor="@android:color/white" />
 
-        <com.aurora.wress.widget.CustomFontTextView
-            android:id="@+id/location_select_genderTV"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Gender"
-            app:font="@string/proximaNovaSemibold"/>
+    <Button
+        android:id="@+id/find_my_location"
+        android:layout_width="300dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/or"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/ic_place_24dp"
+        android:drawableStart="@drawable/ic_place_24dp"
+        android:text="Find my location"
+        android:theme="@style/ButtonDark" />
 
-        <RadioGroup
-            android:id="@+id/location_gender_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/location_select_genderTV"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/location_choose_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/where_are_you_going"
+        android:layout_marginTop="4dp"
+        android:visibility="gone">
 
-            <RadioButton
-                android:id="@+id/location_male"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:checked="true"
-                android:text="Male"/>
-
-            <RadioButton
-                android:id="@+id/location_female"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:text="Female"/>
-
-        </RadioGroup>
-
-        <com.aurora.wress.widget.CustomFontTextView
-            android:id="@+id/location_select_locationTV"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/location_gender_layout"
-            android:layout_marginTop="48dp"
-            android:text="Location"
-            app:font="@string/proximaNovaSemibold"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/location_choose_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/location_select_locationTV"
-            android:layout_marginTop="4dp">
-
-            <com.aurora.wress.widget.CustomAutoCompleteTextView
-                android:id="@+id/location_choose"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:hint="Choose A Location"
-                android:singleLine="true"
-                app:font="@string/proximaNovaRegular"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <com.aurora.wress.widget.CustomFontTextView
-            android:id="@+id/location_or"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/location_choose_layout"
-            android:layout_margin="16dp"
-            android:gravity="center"
-            android:text="OR"
-            android:textColor="@color/colorAppBlack"
-            app:font="@string/proximaNovaRegular"/>
-
-        <com.aurora.wress.widget.CustomFontButton
-            android:id="@+id/location_find"
+        <AutoCompleteTextView
+            android:id="@+id/location_choose"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_below="@+id/location_or"
-            android:paddingEnd="4dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="4dp"
-            android:paddingStart="0dp"
-            android:text="Find My Location"
-            android:theme="@style/ButtonLight"
-            app:font="@string/proximaNovaRegular"/>
+            android:hint="Choose A Location"
+            android:singleLine="true" />
 
-        <com.aurora.wress.widget.CustomFontTextView
-            android:id="@+id/location_terms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/location_find"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:text="@string/location_terms"
-            android:textAllCaps="true"
-            app:font="@string/proximaNovaRegular"/>
+    </android.support.design.widget.TextInputLayout>
 
-        <com.aurora.wress.widget.CustomFontButton
-            android:id="@+id/location_done"
-            style="@style/ButtonDark"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_below="@+id/location_terms"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Done. Let’s Get YOU STARTED"
-            app:font="@string/proximaNovaRegular"/>
-
-    </RelativeLayout>
-
-</ScrollView>
+</RelativeLayout>

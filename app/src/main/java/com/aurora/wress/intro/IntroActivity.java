@@ -1,5 +1,9 @@
 package com.aurora.wress.intro;
 
+import com.aurora.wress.R;
+import com.aurora.wress.login.LoginActivity;
+import com.aurora.wress.utils.PrefUtil;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,28 +12,18 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-
-import com.aurora.wress.R;
-import com.aurora.wress.login.LoginActivity;
-import com.aurora.wress.utils.PrefUtils;
-import com.aurora.wress.widget.CustomFontButton;
+import android.widget.Button;
 
 import me.relex.circleindicator.CircleIndicator;
 
+/**
+ * The type Intro activity.
+ */
 public class IntroActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         super.onCreate(savedInstanceState);
-
-        // Make activity fullscreen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_intro);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.intro_viewPager);
@@ -39,7 +33,7 @@ public class IntroActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         circleIndicator.setViewPager(viewPager);
 
-        final CustomFontButton getStartedBtn = (CustomFontButton) findViewById(R.id.intro_get_started_Button);
+        final Button getStartedBtn = (Button) findViewById(R.id.intro_get_started_Button);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -55,7 +49,7 @@ public class IntroActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                            PrefUtils.markTosAccepted(getApplicationContext());
+                            PrefUtil.markTosAccepted(getApplicationContext());
                             finish();
                         }
                     });
@@ -75,6 +69,11 @@ public class IntroActivity extends AppCompatActivity {
      */
     private static class IntroPagerAdapter extends FragmentStatePagerAdapter {
 
+        /**
+         * Instantiates a new Intro pager adapter.
+         *
+         * @param fm the fm
+         */
         public IntroPagerAdapter(FragmentManager fm) {
             super(fm);
         }

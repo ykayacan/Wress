@@ -1,100 +1,88 @@
 package com.aurora.wress.location;
 
-import android.content.Intent;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ScrollView;
-import android.widget.Toast;
-
-import com.aurora.wress.R;
-import com.aurora.wress.weather.WeatherActivity;
-import com.aurora.wress.widget.CustomAutoCompleteTextView;
-import com.aurora.wress.widget.CustomFontButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.location.places.AutocompletePrediction;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 
+import com.aurora.wress.R;
+import com.aurora.wress.weather.WeatherActivity;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
+/**
+ * The type Location activity.
+ */
 public class LocationActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
-    public static final String TAG = LocationActivity.class.getSimpleName();
-
-    private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
-            new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
+    /**
+     * The constant TAG.
+     */
+    public static final String TAG = "LocationActivity";
 
     /**
      * GoogleApiClient wraps our service connection to Google Play Services and provides access
      * to the user's sign in state as well as the Google's APIs.
      */
-    protected GoogleApiClient mGoogleApiClient;
-
-    private PlaceAutocompleteAdapter mAdapter;
-
-    private String mLatitude;
-    private String mLongitude;
-
-    private String mPlaceId;
+    private GoogleApiClient mGoogleApiClient;
 
     // UI Widgets
-    private ScrollView mScrollView;
-    private CustomAutoCompleteTextView mAutocompleteTextView;
-    private CustomFontButton mFindCurrLocationButton;
-    private CustomFontButton mDoneButton;
+    private CoordinatorLayout mCoordinatorLayout;
+    private Button mFindMyLocationButton;
+    private Button mWhereAreYouGoingButton;
+    private ProgressBar mProgressBar;
+    private RelativeLayout mInnerContent;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
         setupViews();
 
-        // Add drawable to right of button
-        mFindCurrLocationButton
-                .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.btn_square_navigate, 0);
-
         buildGoogleApiClient();
 
-        // Register a listener that receives callbacks when a suggestion has been selected
-        mAutocompleteTextView.setOnItemClickListener(getAutocompleteClickListener());
+        mWhereAreYouGoingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+            }
+        });
 
-        // Set up the adapter that will retrieve suggestions from the Places Geo Data API that cover
-        // the entire world.
-        mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, BOUNDS_GREATER_SYDNEY, null);
-        mAutocompleteTextView.setAdapter(mAdapter);
-
-        mFindCurrLocationButton.setOnClickListener(new View.OnClickListener() {
+        mFindMyLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guessCurrentPlace();
             }
         });
 
-        mDoneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
-                intent.putExtra(WeatherActivity.PARAM_LATITUDE, mLatitude);
-                intent.putExtra(WeatherActivity.PARAM_LONGITUDE, mLongitude);
-                intent.putExtra(WeatherActivity.PARAM_PLACE_ID, mPlaceId);
-                startActivity(intent);
-            }
-        });
-
+        // Override activity loading animation
         overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
     }
 
@@ -105,10 +93,11 @@ public class LocationActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mAutocompleteTextView = (CustomAutoCompleteTextView) findViewById(R.id.location_choose);
-        mFindCurrLocationButton = (CustomFontButton) findViewById(R.id.location_find);
-        mDoneButton = (CustomFontButton) findViewById(R.id.location_done);
-        mScrollView = (ScrollView) findViewById(R.id.location_scrollView);
+        mFindMyLocationButton = (Button) findViewById(R.id.find_my_location);
+        mWhereAreYouGoingButton = (Button) findViewById(R.id.where_are_you_going);
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
+        mProgressBar = (ProgressBar) findViewById(R.id.loading);
+        mInnerContent = (RelativeLayout) findViewById(R.id.inner_content);
     }
 
     /**
@@ -121,7 +110,6 @@ public class LocationActivity extends AppCompatActivity implements
         // and disconnect() explicitly.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, 0 /* clientId */, this)
-                .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
     }
@@ -131,109 +119,79 @@ public class LocationActivity extends AppCompatActivity implements
         Log.e(TAG, "onConnectionFailed: ConnectionResult.getErrorCode() = "
                 + connectionResult.getErrorCode());
 
-        Snackbar.make(mScrollView,
+        Snackbar.make(mCoordinatorLayout,
                 "Could not connect to Google API Client: Error " +
                         connectionResult.getErrorCode(),
                 Snackbar.LENGTH_SHORT).show();
     }
 
     /**
-     * Callback for results from a Places Geo Data API query that shows the first place result in
-     * the details view on screen.
-     */
-    private ResultCallback<PlaceBuffer> getUpdatePlaceDetailsCallback() {
-        return new ResultCallback<PlaceBuffer>() {
-            @Override
-            public void onResult(PlaceBuffer places) {
-                if (!places.getStatus().isSuccess()) {
-                    // Request did not complete successfully
-                    Log.e(TAG, "Place query did not complete. Error: " + places.getStatus().toString());
-                    places.release();
-                    return;
-                }
-                // Get the Place object from the buffer.
-                final Place place = places.get(0);
-
-                Log.i(TAG, "Place details received: " + place.getName());
-
-                mLatitude = String.valueOf(place.getLatLng().latitude);
-                mLongitude = String.valueOf(place.getLatLng().longitude);
-
-                mPlaceId = place.getId();
-
-                places.release();
-            }
-        };
-    }
-
-    /**
-     * Listener that handles selections from suggestions from the AutoCompleteTextView that
-     * displays Place suggestions.
-     * Gets the place id of the selected item and issues a request to the Places Geo Data API
-     * to retrieve more details about the place.
-     *
-     * @see com.google.android.gms.location.places.GeoDataApi#getPlaceById(com.google.android.gms.common.api.GoogleApiClient,
-     * String...)
-     */
-    private AdapterView.OnItemClickListener getAutocompleteClickListener() {
-        return new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*
-                 Retrieve the place ID of the selected item from the Adapter.
-                 The adapter stores each Place suggestion in a AutocompletePrediction from which we
-                 read the place ID and title.
-                */
-                final AutocompletePrediction item = mAdapter.getItem(position);
-                final String placeId = item.getPlaceId();
-                final CharSequence primaryText = item.getPrimaryText(null);
-
-                Log.i(TAG, "Autocomplete item selected: " + primaryText);
-
-                /*
-                 Issue a request to the Places Geo Data API to retrieve a Place object with additional
-                 details about the place.
-                */
-                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
-                        .getPlaceById(mGoogleApiClient, placeId);
-                placeResult.setResultCallback(getUpdatePlaceDetailsCallback());
-
-                Toast.makeText(getApplicationContext(), "Clicked: " + primaryText,
-                        Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "Called getPlaceById to get Place details for " + placeId);
-            }
-        };
-    }
-
-    /**
      * Guess current place
      */
     private void guessCurrentPlace() {
-        if (mGoogleApiClient.isConnected() && isGPSEnabled()) {
-            PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
-                    .getCurrentPlace(mGoogleApiClient, null);
+        Dexter.checkPermission(new PermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse response) {
+                if (mGoogleApiClient.isConnected() && isGPSEnabled()) {
+                    // Show progressbar until a location is found
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    mInnerContent.setVisibility(View.GONE);
 
-            result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
-                @Override
-                public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
-                    // Couldn't find a location
-                    if (likelyPlaces.getCount() < 0) {
-                        Snackbar.make(mScrollView, R.string.no_address_found, Snackbar.LENGTH_SHORT).show();
-                    } else { // Found a location
-                        Snackbar.make(mScrollView, R.string.address_found, Snackbar.LENGTH_SHORT).show();
-                        // Get the location that has highest possibility
-                        LatLng latLng = likelyPlaces.get(0).getPlace().getLatLng();
-                        mLatitude = String.valueOf(latLng.latitude);
-                        mLongitude = String.valueOf(latLng.longitude);
-                        mPlaceId = likelyPlaces.get(0).getPlace().getId();
-                    }
+                    PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
+                            .getCurrentPlace(mGoogleApiClient, null);
 
-                    likelyPlaces.release();
+                    result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
+                        @Override
+                        public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
+                            // Couldn't find a location
+                            if (likelyPlaces.getCount() < 0) {
+                                Snackbar.make(mCoordinatorLayout, R.string.no_address_found, Snackbar.LENGTH_SHORT).show();
+                            } else { // Found a location
+                                // Get the location that has highest possibility
+                                LatLng latLng = likelyPlaces.get(0).getPlace().getLatLng();
+
+                                String latitude = String.valueOf(latLng.latitude);
+                                String longitude = String.valueOf(latLng.longitude);
+                                String placeName = likelyPlaces.get(0).getPlace().getName().toString();
+
+                                // Hide progressbar
+                                mProgressBar.setVisibility(View.GONE);
+                                mInnerContent.setVisibility(View.VISIBLE);
+
+                                Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
+                                intent.putExtra(WeatherActivity.PARAM_LATITUDE, latitude);
+                                intent.putExtra(WeatherActivity.PARAM_LONGITUDE, longitude);
+                                intent.putExtra(WeatherActivity.PARAM_PLACE_NAME, placeName);
+                                startActivity(intent);
+                            }
+
+                            likelyPlaces.release();
+                        }
+                    });
+                } else { // Ask device to enable GPS from settings
+                    mProgressBar.setVisibility(View.GONE);
+                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 }
-            });
-        } else { // Ask device to enable GPS from settings
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-        }
+            }
+
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse response) {
+                PermissionListener dialogPermissionListener =
+                        DialogOnDeniedPermissionListener.Builder
+                                .withContext(getApplicationContext())
+                                .withTitle("Camera permission")
+                                .withMessage("Camera permission is needed to take pictures of your cat")
+                                .withButtonText(android.R.string.ok)
+                                .withIcon(R.mipmap.ic_launcher)
+                                .build();
+                Dexter.checkPermission(dialogPermissionListener, Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+            }
+        }, Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
     /**

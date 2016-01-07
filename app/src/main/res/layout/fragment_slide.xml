@@ -1,4 +1,4 @@
-<LinearLayout
+<LinearLayout android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:layout_weight=".9"
-        android:src="@drawable/slide1"/>
+        android:src="@drawable/slide1" />
 
     <TextView
         android:id="@+id/intro_description"
@@ -23,6 +23,6 @@
         android:gravity="center"
         android:text="Pick up the varied hues of Autumn"
         android:textColor="@color/colorAppBlack"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
 </LinearLayout>
